@@ -4,6 +4,7 @@ import Landing from './components/views/Landing';
 import LoginPanel from "./components/inc/LoginPanel";
 import RecetaDigital from "./components/views/Receta/Receta";
 import Menu from "./components/views/Menu/Menu";
+import HistoriaClinica from "./components/views/Receta/historiaClinica";
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
         <Route exact path="/receta" element={<RecetaDigital />} />
         <Route exact path="/menu" element={<Menu />} />
      
+        <Route exact path="/historiaClinica" element={<HistoriaClinica />} />
       </Routes>
     </div>
   )
