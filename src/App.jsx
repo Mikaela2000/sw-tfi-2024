@@ -4,7 +4,7 @@ import Landing from './components/views/Landing';
 import LoginPanel from "./components/inc/LoginPanel";
 import RecetaDigital from "./components/views/Receta/Receta";
 import Menu from "./components/views/Menu/Menu";
-import HistoriaClinica from "./components/views/Receta/historiaClinica";
+import HistoriaClinica from "./components/views/historiaClinica";
 
 function App() {
 

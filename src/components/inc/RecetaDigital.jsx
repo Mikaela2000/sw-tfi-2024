@@ -1,55 +1,55 @@
-import { Link, useNavigate } from "react-router-dom";
-import React, { useState } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
 
-const RecetaDigital = ({ recetaDigital }) => {
-    const handleClose = () => {
-        if (recetaDigital) recetaDigital(); // Llama a la función receta pasada como prop
-    };
+const RecetaDigital = () => {
+    const paciente = useSelector((state) => state.paciente);
 
-    return(
-        <>
-            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                <div className="relative bg-white p-10 rounded-lg shadow-lg w-full max-w-md">
-                    {/* Botón de cerrar */}
-                    <button 
-                        onClick={handleClose}
-                        className="absolute top-2 right-2 text-gray-600 hover:text-gray-900"
-                    >
-                        <svg 
-                            xmlns="http://www.w3.org/2000/svg" 
-                            className="h-6 w-6" 
-                            viewBox="0 0 24 24" 
-                            fill="none" 
-                            stroke="currentColor" 
-                            strokeWidth="2" 
-                            strokeLinecap="round" 
-                            strokeLinejoin="round"
-                        >
-                            <path d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
-                    <form className="flex flex-col ">
-                        <label 
-                            htmlFor="buscarMedicamento"
-                            className="flex flex-col items-center">
-                            medicamento buscado: xxxxxx</label>
-                        <label 
-                            htmlFor="observacionesMedicamento"
-                            className="flex flex-col items-start">
-                            observacion</label>
-                        <input 
-                            type="observacionMedicamento"
-                            id="observacionMedicamento"
-                            name="observacionMedicamento"
-                            className="border border-gray-900" />
-                        <button 
-                            className="bg-green-500 text-white font-bold">
-                            Crear Receta Digital
-                        </button>
-                    </form>
+    const diagnosticosPacientes = paciente?.historiaClinica?.diagnosticos || [];
+    console.log(diagnosticosPacientes);
+
+    return (
+        <div className="w-full flex flex-col items-start justify-center">
+            {paciente ? (
+                <div className="w-full">
+                    {/* Diagnósticos */}
+                    <div className="w-full">
+                        {diagnosticosPacientes.length > 0 ? (
+                            diagnosticosPacientes.map((diagnostico, diagnosticoIndex) => (
+                                <div key={diagnosticoIndex} className="w-full flex flex-col items-center">
+                                    {diagnostico.evoluciones.map((evolucion, evolucionIndex) => {
+                                        // Verifica si existe recetaDigital y medicamentos para renderizarlos
+                                        if (evolucion.recetaDigital?.medicamentos?.length > 0) {
+                                            return (
+                                                <div key={evolucionIndex} className="relative w-full flex flex-col items-start justify-center">
+                                                    <div className=" w-full flex flex-col items-start  justify-center">
+                                                        {evolucion.recetaDigital.medicamentos.map((medicamento, medicamentoIndex) => (
+                                                            <div key={medicamentoIndex} className="border-b-2 border-white-400 w-full flex flex-col items-start pl-2 justify-center h-14">
+                                                                <p>
+                                                                    {medicamento.nombreComercial}
+                                                                </p>
+                                                                {/* <p>
+                                                                    <strong>Genérico:</strong> {medicamento.nombreGenerico}
+                                                                </p> */}
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            );
+                                        }
+                                        return null; // No renderiza nada si no hay medicamentos
+                                    })}
+                                </div>
+                            ))
+                        ) : (
+                            <p>No hay recetas digitales registradas para este paciente.</p>
+                        )}
+                    </div>
                 </div>
-            </div>
-        </>
+            ) : (
+                <p>No se encontraron datos para este paciente.</p>
+            )}
+        </div>
     );
 };
+
 export default RecetaDigital;

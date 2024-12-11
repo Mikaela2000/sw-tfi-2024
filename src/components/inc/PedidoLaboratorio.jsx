@@ -1,36 +1,45 @@
-import { Link, useNavigate } from "react-router-dom";
-import React, { useState } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
 
-const PedidoLaboratorio = ({ pedidoLaboratorio }) => {
-    const handleClose = () => {
-        if (pedidoLaboratorio) pedidoLaboratorio(); // Llama a la función receta pasada como prop
-    };
+const EvolucionPaciente = () => {
+    const paciente = useSelector((state) => state.paciente);
 
-    return(
-        <>
-            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                <div className="relative bg-white p-10 rounded-lg shadow-lg w-full max-w-md">
-                    {/* Botón de cerrar */}
-                    <button 
-                        onClick={handleClose}
-                        className="absolute top-2 right-2 text-gray-600 hover:text-gray-900"
-                    >
-                        <svg 
-                            xmlns="http://www.w3.org/2000/svg" 
-                            className="h-6 w-6" 
-                            viewBox="0 0 24 24" 
-                            fill="none" 
-                            stroke="currentColor" 
-                            strokeWidth="2" 
-                            strokeLinecap="round" 
-                            strokeLinejoin="round"
-                        >
-                            <path d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
+    const diagnosticosPacientes = paciente?.historiaClinica?.diagnosticos || [];
+
+    return (
+        <div className="w-full flex flex-col  items-start justify-center h-14 ">
+            {paciente ? (
+                <div className="w-full">
+                    {/* Diagnósticos */}
+                    <div className="w-full h-14">
+                        {diagnosticosPacientes.length > 0 ? (
+                            diagnosticosPacientes.map((diagnostico, diagnosticoIndex) => (
+                                <div key={diagnosticoIndex} className="w-full flex flex-col items-center h-14">
+                                    {diagnostico.evoluciones.map((evolucion, evolucionIndex) => {
+                                        // Verifica si el texto es null o vacío, y no lo renderiza
+                                        if (evolucion.pedidoLaboratorio?.texto) {
+                                            return (
+                                                <div key={evolucionIndex} className="relative w-full flex flex-col items-start justify-center h-14">
+                                                    <div className="border-b-2 border-white-400 w-full flex flex-col items-start pl-2 justify-center h-14">
+                                                        <p>{evolucion.pedidoLaboratorio.texto}</p>
+                                                    </div>
+                                                </div>
+                                            );
+                                        }
+                                        return null; // No renderiza nada si es null o vacío
+                                    })}
+                                </div>
+                            ))
+                        ) : (
+                            <p>No hay pedidos de laboratorio registrados para este paciente.</p>
+                        )}
+                    </div>
                 </div>
-            </div>
-        </>
+            ) : (
+                <p>No se encontraron datos para este paciente.</p>
+            )}
+        </div>
     );
 };
-export default PedidoLaboratorio;
+
+export default EvolucionPaciente;

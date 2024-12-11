@@ -1,39 +1,48 @@
-import { Link, useNavigate } from "react-router-dom";
-import React, { useState } from "react";
+import React from "react";
+import { useLocation } from "react-router-dom";
 
-const DiagnosticoPrevio = ({ diagnosticoPrevio }) => {
-    const handleClose = () => {
-        if (diagnosticoPrevio) diagnosticoPrevio(); // Llama a la función receta pasada como prop
-    };
+const DiagnosticoPrevio = () => {
+    const location = useLocation();
+    const { paciente } = location.state || {};
 
-    return(
-        <>
-            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                <div className="relative bg-white p-10 rounded-lg shadow-lg w-full max-w-md">
-                    {/* Botón de cerrar */}
-                    <button 
-                        onClick={handleClose}
-                        className="absolute top-2 right-2 text-gray-600 hover:text-gray-900"
-                    >
-                        <svg 
-                            xmlns="http://www.w3.org/2000/svg" 
-                            className="h-6 w-6" 
-                            viewBox="0 0 24 24" 
-                            fill="none" 
-                            stroke="currentColor" 
-                            strokeWidth="2" 
-                            strokeLinecap="round" 
-                            strokeLinejoin="round"
-                        >
-                            <path d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
-                    <div  className="flex flex-col items-start">
-                        <h2>Diagnosticos Previos...</h2>
+    // Extraer los diagnósticos del paciente si existen
+    const diagnosticosPacientes = paciente?.payload?.historiaClinica?.diagnosticos || [];
+
+    // Usamos un set para evitar mostrar diagnósticos duplicados
+    const diagnosticosMostrados = new Set();
+
+    return (
+        <div className="w-full h-screen flex flex-col items-start mb-8">
+            {paciente ? (
+                <div className="w-full">
+                    {/* Diagnósticos */}
+                    <div className="w-full mt-6">
+                        {diagnosticosPacientes.length > 0 ? (
+                            diagnosticosPacientes.map((diagnostico, diagnosticoIndex) => {
+                                // Verifica si el diagnóstico ya se ha mostrado
+                                if (diagnosticosMostrados.has(diagnostico.enfermedad)) {
+                                    return null;
+                                }
+
+                                // Si el diagnóstico no está en el set, lo agregamos y lo mostramos
+                                diagnosticosMostrados.add(diagnostico.enfermedad);
+
+                                return (
+                                    <div key={diagnosticoIndex} className="mb-4 w-full flex flex-col items-center">
+                                        <button className="mt-7 w-40">{diagnostico.enfermedad}</button>
+                                    </div>
+                                );
+                            })
+                        ) : (
+                            <p>No hay diagnósticos registrados para este paciente.</p>
+                        )}
                     </div>
                 </div>
-            </div>
-        </>
+            ) : (
+                <p>No se encontraron datos para este paciente.</p>
+            )}
+        </div>
     );
-}
+};
+
 export default DiagnosticoPrevio;

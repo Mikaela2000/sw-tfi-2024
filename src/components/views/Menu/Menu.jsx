@@ -15,13 +15,13 @@ const Menu = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log("askldjaslkdjaskld")
     try {
       const paciente = await dispatch(actions.getAllPacienteforDNI(pacienteDNI));
-      console.log("Paciente encontrado:", paciente);
+     
 
       // Navegar al componente DatosPaciente pasando datos
-      navigate("/receta", { state: { paciente } });
+      navigate("/historiaClinica", { state: { paciente } });
     } catch (error) {
       setErrorMessage(error.message || "Ocurrió un error al buscar el paciente");
     }
