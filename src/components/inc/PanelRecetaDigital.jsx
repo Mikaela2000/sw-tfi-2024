@@ -1,15 +1,19 @@
-import React from "react";
-import { useLocation } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import * as actions from "../../redux/actions";
 
-const DatosPaciente = () => {
-    const location = useLocation();
+const PanelRecetaDigital = ({ onClose }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
     const { paciente } = location.state || {};
 
-    console.log("soy el paciente", paciente)
+    console.log(paciente)
 
 
-    return (
-        <div className="w-full flex flex-col items-start p-7  mb-2">
+  return (
+    <div className="w-full flex flex-col items-start p-7  mb-2">
             <h2>Datos del Paciente</h2>
             <div className="w-full border-t-2 border-black-200"></div>
             {paciente ? (
@@ -32,7 +36,7 @@ const DatosPaciente = () => {
                 <p>No se encontraron datos para este paciente.</p>
             )}
         </div>
-    );
+  );
 };
 
-export default DatosPaciente;
+export default PanelRecetaDigital;

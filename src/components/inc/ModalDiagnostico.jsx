@@ -47,10 +47,6 @@ const ModalDiagnostico = ({ onClose }) => {
         console.error("Token no encontrado");
     }
 
-
-
-
-
     useEffect(() => {
         dispatch(actions.getAllMedicamentos());
         console.log("soy el token", username)
