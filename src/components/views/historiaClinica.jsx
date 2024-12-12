@@ -27,43 +27,38 @@ const HistoriaClinica = ({ paciente1 }) => {
   const handleCloseHacerPedido = () => setShowHacerPedido(false);
 
   return (
-    <div className="h-screen ">
-      {/* Título */}
-      <div className="bg-gray-400 h-10 flex space-x-96 absolute top-0 w-full border-b-2 border-white-400">
-        <div>
-          <h3>Historia Clinica</h3>
-        </div>
+    <div className="h-screen mt-28 ">
+      <div>
+        <h2 className="text-4xl">Historia Clínica</h2>
       </div>
-
-      {/* Identificación Paciente */}
-      <div className="h-44 mb-10 mt-16">
+      <div className="h-44 mb-7 mt-5">
         <DatosPaciente />
       </div>
 
-      <div className="bg-gray-400 top-32 w-full h-full flex p-4 flex-row w-full">
-        <div className="relative w-80 flex flex-col items-start h-full border-2">
-          <h3 className="absolute top-[-0.90rem] w-36 left-0 bg-gray-400 mx-2 font-bold">Diagnósticos</h3>
+      <div className="top-32 w-full h-full flex p-4 flex-row w-full">
+        <div className="relative w-80 flex flex-col items-start h-full border-2 border-black pt-8 pl-2">
+          <h3 className="absolute top-[-0.90rem] bg-white w-36 left-0  mx-2 font-bold">Diagnósticos</h3>
           <DiagnosticoPrevio />
         </div>
 
-        <div className="relative flex flex-col w-92 items-start border-2 ">
+        <div className="relative flex flex-col w-92 items-start border-2 border-black  pl-4 pr-4">
         <button
-            className="absolute top-12 w-40 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-green-500 text-white font-bold"
+            className="absolute top-12 w-40 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-blue-900 text-white font-bold"
             onClick={openModal}
           >
             Nueva
           </button>
 
-          <div className=" flex flex-col h-full max-h-1/5 overflow-y-auto mt-20" >
-            <h3 className="absolute top-[-0.90rem] w-36 left-0 bg-gray-400 mx-2 font-bold" style={{ zIndex: 10 }}>Historia Clínica</h3>
+          <div className=" flex flex-col h-full max-h-1/5 overflow-y-auto mt-20 pt-8" >
+            <h3 className="absolute top-[-0.90rem] w-36 left-0  mx-2 font-bold bg-white" style={{ zIndex: 10 }}>Historia Clínica</h3>
             <EvolucionPaciente />
 
           </div>
         </div>
 
-        <div className="flex flex-grow border-2 border-white-400 ">
-          <div className="relative left-20 top-8 h-80 max-h-80 overflow-y-auto border-2 border-white-400 w-72">
-            <div className="pt-2 pb-2 border-b-2 border-white-400 bg-yellow-400" >
+        <div className="flex flex-grow border-2 border-black">
+          <div className="relative left-20 top-8 h-80 max-h-80 overflow-y-auto border-2 border-white-800 w-72">
+            <div className="pt-2 pb-2 border-b-2 border-white-800 bg-yellow-400" >
               <h3>Pedido de Laboratorio</h3>
             </div>
 

@@ -7,8 +7,9 @@ const DatosPaciente = () => {
 
 
     return (
-        <div className="w-full flex flex-col items-start p-7 border-4 border-black-600 mb-8">
+        <div className="w-full flex flex-col items-start p-7  mb-2">
             <h2>Datos del Paciente</h2>
+            <div className="w-full border-t-2 border-black-200"></div>
             {paciente ? (
                 <div className="w-full" >
                     <div className="w-full flex justify-between mt-6">

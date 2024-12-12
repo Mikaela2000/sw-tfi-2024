@@ -5,7 +5,7 @@ const RecetaDigital = () => {
     const paciente = useSelector((state) => state.paciente);
 
     const diagnosticosPacientes = paciente?.historiaClinica?.diagnosticos || [];
-    console.log(diagnosticosPacientes);
+    
 
     return (
         <div className="w-full flex flex-col items-start justify-center">

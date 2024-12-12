@@ -47,12 +47,12 @@ const EvolucionPaciente = () => {
     }, [dispatch, pacienteDni]);
     
     return (
-        <div className="w-full h-screen flex flex-col items-start  mb-8">
+        <div className="w-full h-screen flex flex-col items-start  mb-2">
             {paciente ? (
                 <div className="w-full">
 
                     {/* Diagnósticos */}
-                    <div className="w-full mt-6 ">
+                    <div className="w-full mt-4 ">
                         {diagnosticosPacientes.length > 0 ? (
                             diagnosticosPacientes.map((diagnostico, diagnosticoIndex) => (
                                 <div key={diagnosticoIndex} className="mb-4 w-full flex flex-col items-center">

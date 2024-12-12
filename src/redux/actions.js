@@ -1,4 +1,5 @@
 import axios from "axios";
+
 import { 
   GET_ALL_PACIENTE_DNI,
   POST_EVOLUCION_TEXTO_SIMPLE,
@@ -17,15 +18,13 @@ export const loginUser = (username, password) => {
   return async (dispatch) => {
     try {
       const res = await axios.post(`${url}/login`, { username, password });
-      const { user, token } = res.data; 
-      
+      const {token } = res.data; 
 
       localStorage.setItem("token", token);
-      localStorage.setItem("userName", user.username); 
 
       dispatch({
         type: LOGIN_SUCCESS,
-        payload: { token, userId: user.username },
+        payload: { token },
       });
     } catch (error) {
 
@@ -55,13 +54,12 @@ export function getAllPacienteforDNI(dni) {
     try {
       const token = localStorage.getItem("token");
 
-      console.log("soy el token", token)
 
       const res = await axios.get(`${url}/api/pacientes/${dni}`,{
         
         headers:
         {
-          Authorization: token
+          Authorization: token,
         }
       }); 
       
@@ -77,9 +75,18 @@ export function getAllPacienteforDNI(dni) {
 
 export function createEvoluciomTextoSimple(dniPaciente, idDiagnostico, values) {
   return async function (dispatch) {
+    console.log(values)
     try {
+      const token = localStorage.getItem("token");
     
-      const res = await axios.post(`${url}/api/pacientes/${dniPaciente}/diagnosticos/${idDiagnostico}/evoluciones`, values);
+      const res = await axios.post(`${url}/api/pacientes/${dniPaciente}/diagnosticos/${idDiagnostico}/evoluciones`, values, {
+        
+        headers:
+        {
+          Authorization: token,
+        }
+      });
+    
 
       return dispatch({
         type: POST_EVOLUCION_TEXTO_SIMPLE,
@@ -92,9 +99,17 @@ export function createEvoluciomTextoSimple(dniPaciente, idDiagnostico, values) {
 };
 
 export function createEvoluciomPedidoLaboratirio(dniPaciente, idDiagnostico, values) {
+  
   return async function (dispatch) {
     try {
-      const res = await axios.post(`${url}/api/pacientes/${dniPaciente}/diagnosticos/${idDiagnostico}/evoluciones/pedidoLaboratorio`, values);
+      const token = localStorage.getItem("token");
+      const res = await axios.post(`${url}/api/pacientes/${dniPaciente}/diagnosticos/${idDiagnostico}/evoluciones/pedidoLaboratorio`, values, {
+        
+        headers:
+        {
+          Authorization: token,
+        }
+      });
 
       return dispatch({
         type: POST_EVOLUCION_LABORATORIO,
@@ -109,8 +124,14 @@ export function createEvoluciomPedidoLaboratirio(dniPaciente, idDiagnostico, val
 export function createEvoluciomReceta(dniPaciente, idDiagnostico, values) {
   return async function (dispatch) {
     try {
-
-      const res = await axios.post(`${url}/api/pacientes/${dniPaciente}/diagnosticos/${idDiagnostico}/evoluciones/receta`, values);
+      const token = localStorage.getItem("token");
+      const res = await axios.post(`${url}/api/pacientes/${dniPaciente}/diagnosticos/${idDiagnostico}/evoluciones/receta`, values, {
+        
+        headers:
+        {
+          Authorization: token,
+        }
+      });
       console.log("con receta",res.data)
       return dispatch({
         type: POST_EVOLUCION_RECETA,

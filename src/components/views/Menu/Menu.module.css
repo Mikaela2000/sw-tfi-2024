@@ -1,0 +1,144 @@
+.containerPrincipal {
+    padding-top: 130px;
+    background-color: rgb(237, 242, 246);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    height: 100vh;
+}
+
+.containerTitulo {
+    display: flex;
+    align-items: center;
+    width: 90%;
+
+}
+
+.containerTitulo h2 {
+    margin-left: 20px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100% !important;
+    background-color: rgb(252, 252, 252);
+
+    padding-bottom: 90px !important;
+    /* box-shadow: 0 0px 5px 0px; */
+    margin-top: 50px;
+}
+
+.cardLink {
+    text-decoration: none; /* Elimina el subrayado predeterminado */
+    color: inherit; /* Hereda el color del texto del contenedor padre */
+    display: inline-block; /* Asegura que el enlace no sea intrusivo en el diseño */
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    height: 20vh;
+}
+
+.cardLink:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+.tituloSeccion {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 120px;
+    margin-bottom: 20px;
+    padding: 12px;
+}
+
+.containerCards {
+    display: flex;
+    flex-direction: row; /* Por defecto, no es necesario declararlo */
+    align-items: center; /* Centra verticalmente las tarjetas dentro del contenedor */
+    justify-content: center; /* Distribuye el espacio entre las tarjetas */
+    width: 100%; /* `!important` no suele ser necesario aquí */
+    flex-wrap: wrap; /* Permite que las tarjetas se ajusten a una nueva línea */
+    gap: 16px; /* Espaciado uniforme entre tarjetas */
+    margin-top: 40px;
+}
+
+.card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    /* border: 1px solid black; */
+    background-color: rgb(243, 246, 251);
+    width: 380px;
+    height: 20vh;
+    padding-left: 40px;
+    /* box-shadow: 0px 0 10px 0; */
+
+
+}
+@media (max-width: 768px) {
+    .card {
+        width: 300px; /* Ancho más pequeño para tablets */
+        height: 18vh; /* Opcional: ajustar altura también */
+    }
+}
+
+/* Ajuste para celulares */
+@media (max-width: 480px) {
+    .card { 
+        width:90%; /* Ocupa el 90% del ancho de la pantalla */
+        height: auto; /* Ajuste automático para evitar problemas con contenido */
+        padding-left: 20px; /* Reducir el padding si es necesario */
+        
+    }
+
+    .containerCards {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+/* .card {
+    flex: 1 1 calc(25% - 16px); 
+    width: 400px;
+    background: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+} */
+
+.card:hover{
+    box-shadow: 0 0 10px 0;
+    cursor: pointer;
+}
+
+.cardIzquierda {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.containerPlus {
+    background-color: rgb(196, 222, 248) !important;
+    width: 90px;
+    height: 100%;
+    padding-right: 40px;
+    display: flex;
+    justify-content: end;
+    padding-top: 105px;
+
+}
+
+.containerImg {
+    width: 90px !important;
+}
+
+.containerImg img {
+    width: 100%;
+}
