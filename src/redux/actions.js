@@ -39,15 +39,37 @@ export const loginUser = (username, password) => {
 export const clearAuthError = () => ({
   type: "CLEAR_AUTH_ERROR",
 });
-
+// http://localhost:8080/login/logout
 export const logoutUser = () => {
-  return (dispatch) => {
-      localStorage.removeItem("token"); 
-      localStorage.removeItem("userId"); 
-      dispatch({ type: LOGOUT }); 
+  return async (dispatch) => {
+    try {
+      // 1. Retrieve token from localStorage
+      const token = localStorage.getItem('token'); 
+      console.log("soy el token",token)
+
+      if (!token) {
+        console.warn('No token found in localStorage. User may not be logged in.');
+        return; 
+      }
+
+      const res = await axios.post(`${url}/login/logout`, { token },{
+        
+        headers:
+        {
+          Authorization: token,
+        }
+      });
+
+      dispatch({
+        type: LOGOUT,
+        payload: { token }, // Include token in payload if needed
+      });
+    } catch (error) {
+      console.error('Error during logout:', error.message);
+
+    }
   };
 };
-
 // http://localhost:8080/api/pacientes/12345678
 export function getAllPacienteforDNI(dni) {
   return async function (dispatch) {
