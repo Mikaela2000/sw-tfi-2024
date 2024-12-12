@@ -1,6 +1,6 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import GenerarPDF from "./GenerarPDF"; // Asegúrate de importar GenerarPDF
+import GenerarPDF from "./GenerarPDF"; 
 
 const PanelRecetaDigital = ({ onClose, idReceta }) => {
     const location = useLocation();
@@ -22,12 +22,12 @@ const PanelRecetaDigital = ({ onClose, idReceta }) => {
             </button>
             <div className="w-full">
                 <div className="h-full p-7">
-                    <h2 className="text-2xl font-bold mb-8">Receta Digital</h2>
+                    <h2 className="text-2xl font-bold mb-6">Receta Digital</h2>
                     <div className="w-full border-t-2 border-gray-200 mb-4"></div>
 
                     {paciente ? (
-                        <div className="w-full border-b">
-                            {/* Información básica del paciente */}
+                        <div className="w-full ">
+                 
                             <div className="w-full flex justify-between mt-6">
                                 <p>
                                     <strong>Nombre:</strong> {paciente.payload.nombreApellido}
@@ -49,7 +49,7 @@ const PanelRecetaDigital = ({ onClose, idReceta }) => {
                             </div>
                             <div className="w-full border-t-2 border-gray-200 mb-4 mt-7"></div>
 
-                            {/* Diagnósticos y recetas digitales */}
+                    
                             {diagnosticosPacientes.length > 0 ? (
                                 diagnosticosPacientes.map((diagnostico, diagnosticoIndex) => (
                                     <div
@@ -57,22 +57,22 @@ const PanelRecetaDigital = ({ onClose, idReceta }) => {
                                         className="w-full flex flex-col items-center mt-4"
                                     >
                                         {diagnostico.evoluciones.map((evolucion, evolucionIndex) => {
-                                            // Verifica si la receta actual tiene el ID que estás buscando
+                                            
                                             if (
                                                 evolucion.recetaDigital?.id === idReceta &&
                                                 evolucion.recetaDigital?.medicamentos?.length > 0
                                             ) {
                                                 const fechaHora = new Date(evolucion.recetaDigital.fechaHora);
 
-                                                // Formatear la fecha
+                                             
                                                 const fechaFormateada = fechaHora.toLocaleDateString('es-ES', {
-                                                    weekday: 'long', // Día de la semana (opcional)
+                                                    weekday: 'long', 
                                                     year: 'numeric',
                                                     month: 'long',
                                                     day: 'numeric',
                                                 });
 
-                                                // Formatear la hora
+                                                
                                                 const horaFormateada = fechaHora.toLocaleTimeString('es-ES', {
                                                     hour: '2-digit',
                                                     minute: '2-digit',
@@ -128,7 +128,7 @@ const PanelRecetaDigital = ({ onClose, idReceta }) => {
                                                             </div>
                                                         </div>
 
-                                                        {/* Botón para generar y descargar el PDF */}
+                                                     
                                                         <GenerarPDF
                                                           paciente={paciente}
                                                           diagnosticosPacientes={diagnosticosPacientes}
@@ -137,7 +137,7 @@ const PanelRecetaDigital = ({ onClose, idReceta }) => {
                                                     </div>
                                                 );
                                             }
-                                            return null; // Si no hay coincidencia de ID, no renderiza nada
+                                            return null; 
                                         })}
                                     </div>
                                 ))

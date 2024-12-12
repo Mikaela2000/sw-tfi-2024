@@ -12,9 +12,13 @@ const NavBar = () => {
     const token = useSelector((state) => state.token) || localStorage.getItem("token");
     const user = useSelector((state) => state.user);
 
-    const handleLogout = () => {
-        dispatch(actions.logoutUser(token));
-        navigate("/");
+    const handleLogout = async () => {
+        try {
+            await dispatch(actions.logoutUser(token));
+            navigate("/");
+        } catch (error) {
+            console.error("Error al cerrar sesión:", error);
+        }
     };
 
     return (

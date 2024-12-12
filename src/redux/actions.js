@@ -43,9 +43,8 @@ export const clearAuthError = () => ({
 export const logoutUser = () => {
   return async (dispatch) => {
     try {
-      // 1. Retrieve token from localStorage
+     
       const token = localStorage.getItem('token'); 
-      console.log("soy el token",token)
 
       if (!token) {
         console.warn('No token found in localStorage. User may not be logged in.');
@@ -62,7 +61,7 @@ export const logoutUser = () => {
 
       dispatch({
         type: LOGOUT,
-        payload: { token }, // Include token in payload if needed
+        payload: { token }, 
       });
     } catch (error) {
       console.error('Error during logout:', error.message);
