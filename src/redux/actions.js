@@ -167,7 +167,7 @@ export function createEvoluciomReceta(dniPaciente, idDiagnostico, values) {
 export function getAllMedicamentos() {
   return async function (dispatch) {
     try {
-      const res = await axios.get("/api/servicio-salud/medicamentos/todos?pagina=12&limite=20");
+      const res = await axios.get("/api/servicio-salud/medicamentos/todos?pagina=29&limite=20");
     
    
       return dispatch({

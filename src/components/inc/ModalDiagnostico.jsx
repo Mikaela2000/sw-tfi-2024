@@ -75,7 +75,7 @@ const ModalDiagnostico = ({ onClose }) => {
                     if (!texto || !textoPedidoLaboratorio) {
                         alert('Por favor, complete los campos: texto y texto para pedido de laboratorio.');
                         return;
-                    }else{
+                    } else {
                         alert('Receta creada exitosamente');
                     }
                     await dispatch(actions.createEvoluciomPedidoLaboratirio(dniPaciente, diagnosticoSeleccionado.id, { texto, textoPedidoLaboratorio, username }));
@@ -87,14 +87,14 @@ const ModalDiagnostico = ({ onClose }) => {
                     if (!texto || !dosis || !medicamentoSeleccionado || medicamentoSeleccionado.length === 0) {
                         alert('Por favor, complete todos los campos para la receta digital.');
                         return;
-                    }else{
+                    } else {
                         alert('Receta creada exitosamente');
                     }
                     const medicamentosFormateados = medicamentoSeleccionado.map(med => ({
                         nombreComercial: med.nombreComercial,
                         nombreGenerico: med.nombreGenerico
                     }));
-                     await dispatch(actions.createEvoluciomReceta(dniPaciente, diagnosticoSeleccionado.id, {
+                    await dispatch(actions.createEvoluciomReceta(dniPaciente, diagnosticoSeleccionado.id, {
                         texto,
                         dosis,
                         medicamento: medicamentosFormateados,
@@ -108,7 +108,7 @@ const ModalDiagnostico = ({ onClose }) => {
                     if (!texto) {
                         alert('Por favor, ingrese el texto.');
                         return;
-                    }else{
+                    } else {
                         alert('Receta creada exitosamente');
                     }
                     await dispatch(actions.createEvoluciomTextoSimple(dniPaciente, diagnosticoSeleccionado.id, { username, texto }));
@@ -135,8 +135,13 @@ const ModalDiagnostico = ({ onClose }) => {
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white relative  w-2/5 p-8 rounded-lg shadow-lg h-[90vh] overflow-y-auto">
-                <button classname=" bg-transparent r-0" onClick={onClose}>X</button>
+            <div className="bg-white relative w-2/5 p-8 rounded-lg shadow-lg h-[90vh] overflow-y-auto">
+                {/* Botón de cierre en la esquina superior derecha */}
+                <button
+                    className="absolute text-2xl top-4 right-4 bg-transparent text-gray-600 hover:border-none border-none "
+                    onClick={onClose}>
+                    X
+                </button>
 
                 <h2 className="text-2xl font-semibold text-gray-800 mb-6 border-b pb-2">
                     Evolución Clinica
@@ -170,7 +175,7 @@ const ModalDiagnostico = ({ onClose }) => {
                     <textarea
                         value={texto}
                         onChange={(e) => setTexto(e.target.value)}
-                        placeholder="Escribe el diagnóstico aquí..."
+                        placeholder="Escribe la descripción aquí..."
                         className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
                     />
                 </div>

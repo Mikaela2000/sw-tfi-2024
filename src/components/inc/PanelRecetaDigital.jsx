@@ -103,7 +103,7 @@ const PanelRecetaDigital = ({ onClose, idReceta }) => {
                                                             <h3 className="text-lg font-semibold mt-4">
                                                                 Fármaco Seleccionado
                                                             </h3>
-                                                            <div className="w-full flex flex-col items-start mt-2">
+                                                            <div className="w-full flex  items-start mt-2">
                                                                 {evolucion.recetaDigital.medicamentos.map((medicamento, medicamentoIndex) => (
                                                                     <div
                                                                         key={`medicamento-${medicamentoIndex}`}

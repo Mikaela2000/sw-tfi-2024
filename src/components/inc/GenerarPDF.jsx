@@ -15,12 +15,12 @@ const GenerarPDF = ({ paciente, diagnosticosPacientes, idReceta }) => {
 
         // Información del paciente
         doc.setFontSize(9);
-        doc.text(`Nombre del Beneficiario: ${paciente.payload.nombreApellido}`, 14, 60);
-        doc.text(`DNI: ${paciente.payload.dni}`, 86, 60);
-        doc.text(`Telefono: ${paciente.payload.telefono}`, 160, 60);
-        doc.text(`Dirección: ${paciente.payload.direccion}`, 14, 70);
-        doc.text(`Email: ${paciente.payload.email}`, 86, 70);
-        doc.text(`Cobertura: ${paciente.payload.obraSocial.nombreObraSocial}`, 160, 70);
+        doc.text(`Nombre del Beneficiario: ${paciente.nombreApellido}`, 14, 60);
+        doc.text(`DNI: ${paciente.dni}`, 86, 60);
+        doc.text(`Telefono: ${paciente.telefono}`, 160, 60);
+        doc.text(`Dirección: ${paciente.direccion}`, 14, 70);
+        doc.text(`Email: ${paciente.email}`, 86, 70);
+        doc.text(`Cobertura: ${paciente.obraSocial.nombreObraSocial}`, 160, 70);
         doc.setFontSize(14);
         doc.text("Rp/", 13, 100);
 
