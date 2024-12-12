@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { jwtDecode } from "jwt-decode";
 
+import Swal from "sweetalert2";
 import * as actions from "../../redux/actions";
 
 const ModalDiagnostico = ({ onClose }) => {
@@ -65,7 +66,13 @@ const ModalDiagnostico = ({ onClose }) => {
 
     const handleSubmit = async () => {
         if (!texto || !diagnosticoSeleccionado) {
-            alert("Por favor, complete todos los campos obligatorios.");
+            Swal.fire({
+                title: "Complete todos los datos",
+                icon: "warning",
+                confirmButtonText: "Entendido",
+                confirmButtonColor: "#1d4ed8"
+            });
+            //alert("Por favor, complete todos los campos obligatorios.");
             return;
         }
 
@@ -176,7 +183,7 @@ const ModalDiagnostico = ({ onClose }) => {
                         value={texto}
                         onChange={(e) => setTexto(e.target.value)}
                         placeholder="Escribe la descripción aquí..."
-                        className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
+                        className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300" required
                     />
                 </div>
 
