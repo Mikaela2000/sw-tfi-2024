@@ -19,10 +19,12 @@ const GenerarPDF = ({ paciente, diagnosticosPacientes, idReceta }) => {
         doc.text(`DNI: ${paciente.payload.dni}`, 86, 60);
         doc.text(`Telefono: ${paciente.payload.telefono}`, 160, 60);
         doc.text(`Dirección: ${paciente.payload.direccion}`, 14, 70);
-        doc.text(`Email: ${paciente.payload.email}`, 160, 70);
-        //doc.text(`Cobertura: ${paciente.payload.obraSocial.nombreObraSocial}`, 14, 80);
-        doc.text("Diagnósticos y Recetas Digitales:", 14, 100);
+        doc.text(`Email: ${paciente.payload.email}`, 86, 70);
+        doc.text(`Cobertura: ${paciente.payload.obraSocial.nombreObraSocial}`, 160, 70);
+        doc.setFontSize(14);
+        doc.text("Rp/", 13, 100);
 
+        doc.setFontSize(12);
         // Añadir diagnósticos y recetas al PDF
         let yOffset = 10; // Ajuste de la posición vertical
         diagnosticosPacientes.forEach((diagnostico, diagnosticoIndex) => {
@@ -40,19 +42,24 @@ const GenerarPDF = ({ paciente, diagnosticosPacientes, idReceta }) => {
                     })
 
                     // Información de la receta
-                    doc.text(`Fecha de receta: ${fechaFormateada}`, 74, yOffset);
+                    
+                    doc.text(`Fecha de receta: ${fechaFormateada}`, 60, yOffset);
                     yOffset += 90;
 
                     // Medicamentos
+                    doc.setFontSize(13); // Cambia el tamaño de la fuente para los medicamentos
                     evolucion.recetaDigital.medicamentos.forEach((medicamento, medicamentoIndex) => {
                         doc.text(`${medicamento.nombreComercial}`, 70, yOffset);
                         yOffset += 10;
                     });
-                
+
+                    // Opcional: Vuelve a 
+
                     // Observaciones Médicas
-                    doc.text(` ${evolucion.recetaDigital.dosis}`, 50, yOffset);
+                    doc.text(` ${evolucion.recetaDigital.dosis}`, 70, yOffset);
                     yOffset += 50;
 
+                    doc.setFontSize(12);
                     doc.text(`Firmado Electronicamente por: `, 14, yOffset);
                     yOffset += 10;
                     doc.text(`Dr/a: ${evolucion.medico?.nombreApellido || "No especificado"}`, 14, yOffset);
@@ -60,7 +67,7 @@ const GenerarPDF = ({ paciente, diagnosticosPacientes, idReceta }) => {
                     doc.text(`N° Matrícula: ${evolucion.medico?.matricula || "No especificado"}`, 14, yOffset);
                     yOffset += 10;
                     doc.text(`Especialidad: ${evolucion.medico?.especialidad || "No especificado"}`, 14, yOffset);
-                    yOffset += 15; 
+                    yOffset += 15;
                 }
             });
         });

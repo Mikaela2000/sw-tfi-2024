@@ -94,7 +94,7 @@ const ModalDiagnostico = ({ onClose }) => {
                         nombreComercial: med.nombreComercial,
                         nombreGenerico: med.nombreGenerico
                     }));
-                    await dispatch(actions.createEvoluciomReceta(dniPaciente, diagnosticoSeleccionado.id, {
+                     await dispatch(actions.createEvoluciomReceta(dniPaciente, diagnosticoSeleccionado.id, {
                         texto,
                         dosis,
                         medicamento: medicamentosFormateados,

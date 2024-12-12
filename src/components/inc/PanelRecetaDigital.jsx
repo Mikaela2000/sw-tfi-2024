@@ -1,14 +1,14 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
 import GenerarPDF from "./GenerarPDF"; 
+import { useDispatch, useSelector } from "react-redux";
 
 const PanelRecetaDigital = ({ onClose, idReceta }) => {
-    const location = useLocation();
-    const { paciente } = location.state || {};
+    const paciente = useSelector((state) => state.paciente);
 
-    const diagnosticosPacientes = paciente?.payload.historiaClinica?.diagnosticos || [];
+    console.log("soy yo 2", paciente)
 
-    console.log("soy el id de la receta", diagnosticosPacientes);
+    const diagnosticosPacientes = paciente?.historiaClinica?.diagnosticos || [];
+
 
     return (
         <div className="relative w-full h-full flex flex-col items-start p-7 mb-2 mt-2 bg-white shadow-lg rounded-lg">
@@ -29,22 +29,25 @@ const PanelRecetaDigital = ({ onClose, idReceta }) => {
                         <div className="w-full ">
                  
                             <div className="w-full flex justify-between mt-6">
-                                <p>
-                                    <strong>Nombre:</strong> {paciente.payload.nombreApellido}
+                                <p className="w-80 p-0 text-left">
+                                    <strong>Nombre:</strong> {paciente.nombreApellido}
                                 </p>
-                                <p>
-                                    <strong>DNI:</strong> {paciente.payload.dni}
+                                <p className="w-80 p-0 text-left">
+                                    <strong>DNI:</strong> {paciente.dni}
                                 </p>
-                                <p>
-                                    <strong>Email:</strong> {paciente.payload.email}
+                                <p className="w-80 p-0 text-left">
+                                    <strong>Email:</strong> {paciente.email}
                                 </p>
                             </div>
                             <div className="w-full flex justify-between mt-6">
-                                <p>
-                                    <strong>Dirección:</strong> {paciente.payload.direccion}
+                                <p className="w-80 p-0 text-left">
+                                    <strong>Dirección:</strong> {paciente.direccion}
                                 </p>
-                                <p>
-                                    <strong>Teléfono:</strong> {paciente.payload.telefono}
+                                <p className="w-80 p-0 text-left">
+                                    <strong>Teléfono:</strong> {paciente.telefono}
+                                </p>
+                                <p className="w-80 p-0 text-left">
+                                    <strong>Obra Social:</strong> {paciente.obraSocial.nombreObraSocial}
                                 </p>
                             </div>
                             <div className="w-full border-t-2 border-gray-200 mb-4 mt-7"></div>

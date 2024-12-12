@@ -15,13 +15,14 @@ const DatosPaciente = () => {
             {paciente ? (
                 <div className="w-full" >
                     <div className="w-full flex justify-between mt-6">
-                        <p><strong>Nombre:</strong> {paciente.payload.nombreApellido}</p>
-                        <p><strong>DNI:</strong> {paciente.payload.dni}</p>
-                        <p><strong>Email:</strong> {paciente.payload.email}</p>
+                        <p className="w-80 p-0 text-left"><strong>Nombre:</strong> {paciente.payload.nombreApellido}</p>
+                        <p className="w-80 p-0 text-left"><strong>DNI:</strong> {paciente.payload.dni}</p>
+                        <p className="w-80 p-0 text-left"><strong>Email:</strong> {paciente.payload.email}</p>
                     </div>
                     <div className="w-full flex justify-between mt-6">
-                        <p><strong>Dirección:</strong> {paciente.payload.direccion}</p>
-                        <p><strong>Telefono:</strong> {paciente.payload.telefono}</p>
+                        <p className="w-80 p-0 text-left"><strong>Dirección:</strong> {paciente.payload.direccion}</p>
+                        <p className="w-80 p-0 text-left"><strong>Telefono:</strong> {paciente.payload.telefono}</p>
+                        <p className="w-80 p-0 text-left"><strong>Obra Social:</strong> {paciente.payload.obraSocial.nombreObraSocial}</p>
                    
 
                     </div>
