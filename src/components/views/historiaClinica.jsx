@@ -62,10 +62,10 @@ const HistoriaClinica = () => {
           </button>
           <div className="flex flex-col h-full max-h-1/5 overflow-y-auto mt-20 pt-8">
             <h3
-              className="absolute top-[-0.90rem] w-36 left-0 mx-2 font-bold bg-white"
+              className="absolute top-[-0.90rem] w-36 left-0  font-bold bg-white"
               style={{ zIndex: 10 }}
             >
-              Historia Clínica
+              Evolución Clínica
             </h3>
             <EvolucionPaciente />
           </div>

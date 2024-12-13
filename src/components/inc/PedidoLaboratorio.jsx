@@ -2,44 +2,55 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 const EvolucionPaciente = () => {
-    const paciente = useSelector((state) => state.paciente);
+  const paciente = useSelector((state) => state.paciente);
 
-    const diagnosticosPacientes = paciente?.historiaClinica?.diagnosticos || [];
+  const diagnosticosPacientes = paciente?.historiaClinica?.diagnosticos || [];
 
-    return (
-        <div className="w-full flex flex-col  items-start justify-center h-14 ">
-            {paciente ? (
-                <div className="w-full">
-                    {/* Diagnósticos */}
-                    <div className="w-full h-14">
-                        {diagnosticosPacientes.length > 0 ? (
-                            diagnosticosPacientes.map((diagnostico, diagnosticoIndex) => (
-                                <div key={diagnosticoIndex} className="w-full flex flex-col items-center h-14">
-                                    {diagnostico.evoluciones.map((evolucion, evolucionIndex) => {
-                                        // Verifica si el texto es null o vacío, y no lo renderiza
-                                        if (evolucion.pedidoLaboratorio?.texto) {
-                                            return (
-                                                <div key={evolucionIndex} className="relative w-full flex flex-col items-start justify-center h-14">
-                                                    <div className="border-b-2 border-white-400 w-full flex flex-col items-start pl-2 justify-center h-14">
-                                                        <p>{evolucion.pedidoLaboratorio.texto}</p>
-                                                    </div>
-                                                </div>
-                                            );
-                                        }
-                                        return null; // No renderiza nada si es null o vacío
-                                    })}
-                                </div>
-                            ))
-                        ) : (
-                            <p>No hay pedidos de laboratorio registrados para este paciente.</p>
-                        )}
-                    </div>
+  // Función para extraer los textos de las evoluciones y acumularlos en un solo array
+  const obtenerTodosLosTextos = () => {
+    let textos = [];
+
+    diagnosticosPacientes.forEach((diagnostico) => {
+      diagnostico.evoluciones.forEach((evolucion) => {
+        const texto = evolucion.pedidoLaboratorio?.texto;
+        if (texto) {
+          textos.push(texto); // Agrega el texto al array
+        }
+      });
+    });
+console.log(textos)
+    return textos;
+  };
+
+
+
+  // Obtenemos todos los textos de las evoluciones
+  const todosLosTextos = obtenerTodosLosTextos();
+
+  return (
+    <div className="w-full h-full flex flex-col items-start justify-start">
+      {paciente ? (
+        <div className="w-full h-full">
+          {/* Diagnósticos */}
+          <div className="w-full ">
+            {todosLosTextos.length > 0 ? (
+              todosLosTextos.map((texto, textoIndex) => (
+                <div key={textoIndex} className="relative w-full h-12 flex flex-col items-center justify-center ">
+                  <div className="border-b-2 h-full flex flex-col items-center justify-center border-white-400 w-full pl-2">
+                    <p>{texto}</p>
+                  </div>
                 </div>
+              ))
             ) : (
-                <p>No se encontraron datos para este paciente.</p>
+              <p>No hay pedidos de laboratorio registrados para este paciente.</p>
             )}
+          </div>
         </div>
-    );
+      ) : (
+        <p>No se encontraron datos para este paciente.</p>
+      )}
+    </div>
+  );
 };
 
 export default EvolucionPaciente;

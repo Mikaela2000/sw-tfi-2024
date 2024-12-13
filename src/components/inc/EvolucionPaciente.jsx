@@ -75,7 +75,7 @@ const EvolucionPaciente = () => {
                                                 <p><strong>Hora</strong> {formatHora(evolucion.fechaYhora)} <br /></p>
                                             </div>
                                     
-                                            <p className="p-0 mt-4 text-left"> {evolucion.textoLibre || "No especificado"} <br /></p>
+                                            <p className="p-0 mt-4 w-72 text-left"> {evolucion.textoLibre || "No especificado"} <br /></p>
                                         </div>
                                     </div>
                                     

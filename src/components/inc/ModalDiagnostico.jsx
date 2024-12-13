@@ -50,7 +50,6 @@ const ModalDiagnostico = ({ onClose }) => {
 
     useEffect(() => {
         dispatch(actions.getAllMedicamentos());
-        console.log("soy el token", username)
     }, [dispatch]);
 
     const medFlat = medicamentos.flat()
@@ -80,10 +79,23 @@ const ModalDiagnostico = ({ onClose }) => {
             switch (selectedOption) {
                 case 'option1': // Pedido de Laboratorio
                     if (!texto || !textoPedidoLaboratorio) {
-                        alert('Por favor, complete los campos: texto y texto para pedido de laboratorio.');
+                        Swal.fire({
+                            title: "Complete todos los datos",
+                            icon: "warning",
+                            confirmButtonText: "Entendido",
+                            confirmButtonColor: "#1d4ed8"
+                        });
+                    
                         return;
                     } else {
-                        alert('Receta creada exitosamente');
+
+                        Swal.fire({
+                            title: "Receta creada exitosamente",
+                            icon: "warning",
+                            confirmButtonText: "Entendido",
+                            confirmButtonColor: "#1d4ed8"
+                        });
+             
                     }
                     await dispatch(actions.createEvoluciomPedidoLaboratirio(dniPaciente, diagnosticoSeleccionado.id, { texto, textoPedidoLaboratorio, username }));
 
@@ -92,10 +104,21 @@ const ModalDiagnostico = ({ onClose }) => {
 
                 case 'option2': // Receta Digital
                     if (!texto || !dosis || !medicamentoSeleccionado || medicamentoSeleccionado.length === 0) {
-                        alert('Por favor, complete todos los campos para la receta digital.');
+                        Swal.fire({
+                            title: "Complete todos los datos",
+                            icon: "warning",
+                            confirmButtonText: "Entendido",
+                            confirmButtonColor: "#1d4ed8"
+                        });
+                      
                         return;
                     } else {
-                        alert('Receta creada exitosamente');
+                        Swal.fire({
+                            title: "Receta creada exitosamente",
+                            icon: "warning",
+                            confirmButtonText: "Entendido",
+                            confirmButtonColor: "#1d4ed8"
+                        });
                     }
                     const medicamentosFormateados = medicamentoSeleccionado.map(med => ({
                         nombreComercial: med.nombreComercial,
@@ -113,10 +136,20 @@ const ModalDiagnostico = ({ onClose }) => {
 
                 default: // Texto Simple
                     if (!texto) {
-                        alert('Por favor, ingrese el texto.');
+                        Swal.fire({
+                            title: "Complete todos los datos",
+                            icon: "warning",
+                            confirmButtonText: "Entendido",
+                            confirmButtonColor: "#1d4ed8"
+                        });
                         return;
                     } else {
-                        alert('Receta creada exitosamente');
+                        Swal.fire({
+                            title: "Receta creada exitosamente",
+                            icon: "warning",
+                            confirmButtonText: "Entendido",
+                            confirmButtonColor: "#1d4ed8"
+                        });
                     }
                     await dispatch(actions.createEvoluciomTextoSimple(dniPaciente, diagnosticoSeleccionado.id, { username, texto }));
 
@@ -127,14 +160,24 @@ const ModalDiagnostico = ({ onClose }) => {
             if (onClose) onClose();
 
         } catch (error) {
-            alert("Hubo un error al enviar los datos.");
+            Swal.fire({
+                title: "Hubo un error al enviar los datos.",
+                icon: "warning",
+                confirmButtonText: "Entendido",
+                confirmButtonColor: "#1d4ed8"
+            });
         }
     };
     const handleSelect = (selectedOptions) => {
         if (selectedOptions.length <= 2) {
             setMedicamentoSeleccionado(selectedOptions);
         } else {
-            alert('Solo puedes seleccionar un máximo de dos medicamentos');
+            Swal.fire({
+                title: "Solo puedes seleccionar un máximo de dos medicamentos",
+                icon: "warning",
+                confirmButtonText: "Entendido",
+                confirmButtonColor: "#1d4ed8"
+            });
         }
     };
 
