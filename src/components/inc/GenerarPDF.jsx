@@ -1,7 +1,7 @@
 // src/components/GenerarPDF.js
 import { jsPDF } from "jspdf";
 import imagen from "../../assets/codigoBarra.png"
-import imagen2 from "../../assets/logoReceta.jpg"
+import imagen2 from "../../assets/logoReceta.png"
 
 const GenerarPDF = ({ paciente, diagnosticosPacientes, idReceta }) => {
     const generarPDF = () => {
