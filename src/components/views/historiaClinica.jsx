@@ -11,7 +11,7 @@ import PanelRecetaDigital from "../inc/PanelRecetaDigital"; // Asegúrate de imp
 
 const HistoriaClinica = () => {
   const paciente = useSelector((state) => state.paciente.dni);
-  console.log("soy el paciente", paciente);
+
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showBuscarMedicamento, setShowBuscarMedicamento] = useState(false);

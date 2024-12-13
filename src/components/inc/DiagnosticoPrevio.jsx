@@ -1,9 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
+import ModalDiagnostico from "./ModalDiagnostico";
 
 const DiagnosticoPrevio = () => {
     const location = useLocation();
     const { paciente } = location.state || {};
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [diagnosticoSeleccionado, setDiagnosticoSeleccionado] = useState(null);
+
+    const openModal = (diagnostico) => {
+        setDiagnosticoSeleccionado(diagnostico);
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+        setDiagnosticoSeleccionado(null);
+    };
 
     // Extraer los diagnósticos del paciente si existen
     const diagnosticosPacientes = paciente?.payload?.historiaClinica?.diagnosticos || [];
@@ -29,7 +43,12 @@ const DiagnosticoPrevio = () => {
 
                                 return (
                                     <div key={diagnosticoIndex} className="mb-4 w-full flex flex-col items-center">
-                                        <button className="mt-7 w-40">{diagnostico.enfermedad}</button>
+                                        <button
+                                            className="mt-7 w-40"
+                                            onClick={() => openModal(diagnostico)}
+                                        >
+                                            {diagnostico.enfermedad}
+                                        </button>
                                     </div>
                                 );
                             })
@@ -40,6 +59,14 @@ const DiagnosticoPrevio = () => {
                 </div>
             ) : (
                 <p>No se encontraron datos para este paciente.</p>
+            )}
+
+            {/* Modal */}
+            {isModalOpen && (
+                <ModalDiagnostico
+                    diagnostico={diagnosticoSeleccionado}
+                    onClose={closeModal}
+                />
             )}
         </div>
     );

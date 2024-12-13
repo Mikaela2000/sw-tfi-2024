@@ -7,17 +7,23 @@ import { jwtDecode } from "jwt-decode";
 import Swal from "sweetalert2";
 import * as actions from "../../redux/actions";
 
-const ModalDiagnostico = ({ onClose }) => {
+const ModalDiagnostico = ({ onClose, diagnostico }) => {
     const location = useLocation();
     const { paciente } = location.state || {};
     const dispatch = useDispatch();
+
+    
+  
+    const diagnosticoId = diagnostico?.id || null;
+
+    console.log("soy el diagnostico", diagnosticoId)
 
 
     const [texto, setTexto] = useState("");
     const [textoPedidoLaboratorio, setPedidoLaboratorio] = useState("");
     const [dosis, setRecetaDigital] = useState("");
-    const [dniMedico, setDniMedico] = useState("");
-    const [diagnosticoSeleccionado, setDiagnosticoSeleccionado] = useState(null);
+   
+
     const [medicamentoSeleccionado, setMedicamentoSeleccionado] = useState(null);
     const [open, setOpen] = useState(1);
 
@@ -34,7 +40,9 @@ const ModalDiagnostico = ({ onClose }) => {
     const handleSelectChange = (e) => {
         setSelectedOption(e.target.value);
     };
-
+    const [diagnosticoSeleccionado, setDiagnosticoSeleccionado] = useState(
+        diagnosticosPacientes.find(d => d.id === diagnosticoId) || null // Busca el diagnóstico que coincida con el id recibido
+    );
 
     let username = "";
     if (token) {
@@ -62,7 +70,7 @@ const ModalDiagnostico = ({ onClose }) => {
 
     const handleOpen = (value) => setOpen(open === value ? 0 : value);
 
-
+    
     const handleSubmit = async () => {
         if (!texto || !diagnosticoSeleccionado) {
             Swal.fire({
@@ -85,7 +93,7 @@ const ModalDiagnostico = ({ onClose }) => {
                             confirmButtonText: "Entendido",
                             confirmButtonColor: "#1d4ed8"
                         });
-                    
+
                         return;
                     } else {
 
@@ -95,7 +103,7 @@ const ModalDiagnostico = ({ onClose }) => {
                             confirmButtonText: "Entendido",
                             confirmButtonColor: "#1d4ed8"
                         });
-             
+
                     }
                     await dispatch(actions.createEvoluciomPedidoLaboratirio(dniPaciente, diagnosticoSeleccionado.id, { texto, textoPedidoLaboratorio, username }));
 
@@ -110,7 +118,7 @@ const ModalDiagnostico = ({ onClose }) => {
                             confirmButtonText: "Entendido",
                             confirmButtonColor: "#1d4ed8"
                         });
-                      
+
                         return;
                     } else {
                         Swal.fire({
@@ -168,6 +176,8 @@ const ModalDiagnostico = ({ onClose }) => {
             });
         }
     };
+
+    
     const handleSelect = (selectedOptions) => {
         if (selectedOptions.length <= 2) {
             setMedicamentoSeleccionado(selectedOptions);
@@ -203,15 +213,16 @@ const ModalDiagnostico = ({ onClose }) => {
                     <div className="flex flex-wrap gap-3 justify-start">
                         {diagnosticosPacientes.map((diagnostico, index) => (
                             <button
-                                key={index}
-                                onClick={() => setDiagnosticoSeleccionado(diagnostico)}
-                                className={`px-4 py-2 rounded-full transition-all duration-300 border ${diagnosticoSeleccionado?.id === diagnostico.id
-                                    ? "bg-blue-500 text-white"
-                                    : "bg-blue-100 text-blue-800 border-blue-500"
-                                    }`}
-                            >
-                                {diagnostico.enfermedad || "Sin nombre"}
-                            </button>
+                            key={index}
+                            onClick={() => setDiagnosticoSeleccionado(diagnostico)} // Actualiza el diagnóstico seleccionado
+                            className={`px-4 py-2 rounded-full transition-all duration-300 border ${
+                                diagnosticoSeleccionado && diagnosticoSeleccionado.id === diagnostico.id // Verifica si 'diagnosticoSeleccionado' tiene un id válido
+                                    ? "bg-blue-500 text-white" // Estilo para diagnóstico seleccionado
+                                    : "bg-blue-100 text-blue-800 border-blue-500" // Estilo para no seleccionado
+                            }`}
+                        >
+                            {diagnostico.enfermedad || "Sin nombre"}
+                        </button>
                         ))}
                     </div>
                 </div>
@@ -225,6 +236,7 @@ const ModalDiagnostico = ({ onClose }) => {
                     <textarea
                         value={texto}
                         onChange={(e) => setTexto(e.target.value)}
+                        onBlur={(e) => setTexto(e.target.value.trim())}
                         placeholder="Escribe la descripción aquí..."
                         className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300" required
                     />
@@ -245,6 +257,7 @@ const ModalDiagnostico = ({ onClose }) => {
                                 <textarea
                                     value={textoPedidoLaboratorio}
                                     onChange={(e) => setPedidoLaboratorio(e.target.value)}
+                                    onBlur={(e) => setPedidoLaboratorio(e.target.value.trim())}
                                     placeholder="Escribe el pedido aquí..."
                                     className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
                                 />
@@ -263,7 +276,8 @@ const ModalDiagnostico = ({ onClose }) => {
                                         type="text"
                                         id="dosis"
                                         placeholder="Ingresar una dosis..."
-                                        onChange={(e) => setRecetaDigital(e.target.value)}
+                                        onChange={(e) => setRecetaDigital(e.target.value)} // Permite todo mientras se escribe
+                                        onBlur={(e) => setRecetaDigital(e.target.value.trim())}
                                         className="border border-gray-300 rounded-md p-2 w-full"
                                     />
                                 </div>

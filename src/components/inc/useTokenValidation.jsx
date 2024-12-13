@@ -18,7 +18,8 @@ const useTokenValidation = (token) => {
 
       if (timeRemaining <= 0) {
      
-        handleLogout();
+        dispatch(actions.logoutUser());
+    navigate("/");
       } else {
      
         const timer = setTimeout(() => {
@@ -35,8 +36,7 @@ const useTokenValidation = (token) => {
 
   const handleLogout = () => {
  
-    dispatch(actions.logoutUser());
-    navigate("/");
+    
   };
 };
 

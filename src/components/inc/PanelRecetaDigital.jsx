@@ -21,7 +21,7 @@ const PanelRecetaDigital = ({ onClose, idReceta }) => {
                 ✕
             </button>
             <div className="w-full">
-                <div className="h-full p-7">
+                <div className="h-full pt-2 pl-2 pr-2">
                     <h2 className="text-2xl font-bold mb-6">Receta Digital</h2>
                     <div className="w-full border-t-2 border-gray-200 mb-4"></div>
 
@@ -107,7 +107,7 @@ const PanelRecetaDigital = ({ onClose, idReceta }) => {
                                                                 {evolucion.recetaDigital.medicamentos.map((medicamento, medicamentoIndex) => (
                                                                     <div
                                                                         key={`medicamento-${medicamentoIndex}`}
-                                                                        className="border-2 border-black p-2 flex items-center h-14 mr-7"
+                                                                        className="border-2 border-black p-2 flex items-center h-10 mr-7"
                                                                     >
                                                                         <p className="text-sm">{medicamento.nombreComercial}</p>
                                                                     </div>
