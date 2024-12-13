@@ -6,16 +6,17 @@ import Menu from "./components/views/Menu/Menu";
 import HistoriaClinica from "./components/views/historiaClinica";
 import NavBar from "./components/inc/NavBar";
 import ProtectedRoute from "./components/inc/ProtectedRoute";
-import useTokenValidation from "./components/inc/useTokenValidation"
-import {jwtDecode} from "jwt-decode"; 
+import useTokenValidation from "./components/inc/useTokenValidation";
+import Error404 from "./components/inc/Error404"; // Asegúrate de que la ruta sea correcta
+import { jwtDecode } from "jwt-decode";
 
 const isTokenValid = (token) => {
   try {
     const decoded = jwtDecode(token);
-    const currentTime = Date.now() / 1000; 
-    return decoded.exp > currentTime; 
+    const currentTime = Date.now() / 1000;
+    return decoded.exp > currentTime;
   } catch (error) {
-    return false; 
+    return false;
   }
 };
 
@@ -24,12 +25,16 @@ function App() {
 
   const token = localStorage.getItem("token");
   const isAuthenticated = token && isTokenValid(token);
-  
-  useTokenValidation(token)
+
+  useTokenValidation(token);
+
+  // Ocultar NavBar en rutas específicas
+  const showNavBar =
+    location.pathname === "/menu" || location.pathname == "/receta" || location.pathname == "/historiaClinica";
 
   return (
     <div className="h-screen">
-      {location.pathname !== "/" && <NavBar />}
+      {showNavBar && <NavBar />}
 
       <Routes>
         <Route
@@ -37,7 +42,6 @@ function App() {
           path="/"
           element={isAuthenticated ? <Navigate to="/menu" replace /> : <Landing />}
         />
-
         <Route
           path="/receta"
           element={
@@ -62,6 +66,8 @@ function App() {
             </ProtectedRoute>
           }
         />
+        {/* Ruta comodín para manejar rutas no existentes */}
+        <Route path="*" element={<Error404 />} />
       </Routes>
     </div>
   );
