@@ -29,7 +29,7 @@ const Landing = () => {
                 <div className="w-full">
                     <div className="text-left mb-48 mt-52 ml-28">
                         <div className="flex uppercase font-bold">
-                            <h1 className="text-red-50 text-5xl">Welcome to </h1>
+                            <h1 className="text-red-50 text-5xl">Bienvenido a</h1>
                             <h1 className="text-yellow-700 text-5xl ml-5">Medical Center</h1>
                         </div>
 
@@ -45,14 +45,7 @@ const Landing = () => {
                     </div>
                 </div>
 
-                <div className="flex bg-black bg-opacity-50 p-4 rounded h-4 text-center flex items-center justify-center">
-                    <h2 className="text-red-50">
-                        You do not have an account?
-                    </h2>
-                    <Link to="/signup">
-                        <h2 className="text-red-50 ml-2 text-yellow-600 underline">Sign up</h2>
-                    </Link>
-                </div>
+        
             </div>
 
             {showLoginPanel && <LoginPanel onClose={handleClosePanel} />}
